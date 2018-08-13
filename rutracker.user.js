@@ -206,9 +206,13 @@ function main_kinopoisk()
     $('<tr><td colspan="2" class="torrents">Ищем торренты...</td></tr>').appendTo('table.info');
     var $torrents_container = $('table.info td.torrents');
     var title_ru = $.trim($('#headerFilm > h1.moviename-big').html());
-    var title_full =  title_ru + ' / ' + $.trim($('#headerFilm > span').html());
+    var title_orig = $.trim($('#headerFilm > span').html());
+    var year = $.trim($("#infoTable tr:first-child > td:nth-child(2) a").html());
+    var title_full =  title_ru + ' / ' + title_orig + " " + year;
 
-    if(title_full.length > 60){title_full = title_ru;}
+    if (title_full.length > 55) {
+        title_full = title_ru + " " + year;
+    }
     var full_search_url = rt.search_url+'?nm='+encodeURIComponent(title_full)+'&o=10&s=2';
 
     GM_xmlhttpRequest({
